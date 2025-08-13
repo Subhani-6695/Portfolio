@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shaik Mabusubhani – Portfolio</title>
+  <meta name="description" content="Personal portfolio of Shaik Mabusubhani – projects, resume, and contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0f12;
+      --card: #14161b;
+      --muted: #aab0c0;
+      --text: #e8ecf2;
+      --brand: #7c5cff;
+      --brand-2: #00d4ff;
+      --accent: #2be4ad;
+      --danger: #ff6b6b;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 14px;
+      --maxw: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: radial-gradient(1200px 600px at 80% -10%, rgba(124,92,255,.15), transparent 60%),
+      radial-gradient(1000px 500px at -10% 10%, rgba(0,212,255,.12), transparent 60%), var(--bg);
+      color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.6; 
+    }
+
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 1.2rem; }
+    .grid { display: grid; gap: 1.2rem; }
+    .section { padding: 80px 0; }
+    .badge { display:inline-block; padding:.35rem .65rem; border-radius:999px; font-size:.8rem; background:rgba(124,92,255,.14); border:1px solid rgba(124,92,255,.35); color:#d6d0ff; }
+    .btn { display:inline-flex; align-items:center; gap:.55rem; padding:.85rem 1.1rem; border-radius: 999px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0a0b0e; font-weight:700; border:none; cursor:pointer; text-decoration:none; box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .btn.secondary { background: transparent; color: var(--text); border:1px solid #2b2f37; box-shadow:none; }
+    .btn.secondary:hover { background:#1a1d23; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.07); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .muted { color: var(--muted); }
+    .title { font-family: "Playfair Display", serif; letter-spacing:.3px; }
+
+    header {
+      position: sticky; top: 0; z-index: 30; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,11,14,.7), rgba(10,11,14,.35)); border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .brand { display:flex; align-items:center; gap:.7rem; font-weight:800; }
+    .logo { width:34px; height:34px; border-radius:10px; background: conic-gradient(from 220deg, var(--brand), var(--brand-2), var(--accent), var(--brand)); box-shadow: 0 0 0 4px rgba(124,92,255,.12); }
+    nav a { color: var(--muted); text-decoration:none; margin: 0 .6rem; padding:.45rem .75rem; border-radius: 10px; }
+    nav a:hover, nav a.active { background: rgba(124,92,255,.13); color: #ded9ff; }
+    .menu-toggle { display:none; background:none; border:none; color:var(--text); font-size:1.4rem; }
+
+    #home { display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem; align-items:center; min-height: calc(100vh - 64px); }
+    .hero-title { font-size: clamp(2.2rem, 5.5vw, 4rem); margin:0 0 .6rem; }
+    .hero-sub { font-size: 1.15rem; }
+    .hero-cta { margin-top:1.4rem; display:flex; gap:.8rem; flex-wrap: wrap; }
+    .hero-media { position:relative; }
+    .hero-photo { width: 100%; aspect-ratio: 1; border-radius: 24px; object-fit: cover; background: #1b1f27; border:1px solid rgba(255,255,255,.08); }
+    .hero-orb { position:absolute; right:-10%; bottom:-10%; width:160px; height:160px; border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(0,212,255,.6), transparent 60%), radial-gradient(circle at 70% 70%, rgba(124,92,255,.45), transparent 60%); filter: blur(16px) saturate(130%); opacity:.6; }
+
+    #about .wrap { display:grid; grid-template-columns: .9fr 1.1fr; gap:2rem; }
+    .skills { display:grid; gap:.8rem; }
+    .skill { background:#151922; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:.8rem; }
+    .skill h4 { margin:.2rem 0 .4rem; font-size:.95rem; }
+    .bar { height: 10px; background:#0e1118; border-radius:999px; overflow:hidden; border:1px solid #232733; }
+    .bar span { display:block; height:100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); width: 0; transition: width 1.2s ease-out; }
+
+    .projects-grid { grid-template-columns: repeat(3, 1fr); }
+    .project { overflow:hidden; position:relative; }
+    .project img { width:100%; height:200px; object-fit:cover; display:block; }
+    .project .content { padding:1rem; }
+    .project .tags { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.35rem; }
+    .tag { font-size:.78rem; padding:.25rem .5rem; border-radius:999px; background:#11151d; color:#c9cde0; border:1px solid #2a2f3b; }
+    .project a.btn { margin-top:.6rem; }
+    .project:hover { transform: translateY(-3px); transition: .2s ease transform; }
+
+    .resume-actions { display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .timeline { position:relative; padding-left: 1.4rem; }
+    .timeline::before { content:""; position:absolute; left:.4rem; top:0; bottom:0; width:2px; background: linear-gradient(var(--brand), var(--brand-2)); border-radius:2px; }
+    .item { position:relative; margin: 1rem 0; padding: .8rem 1rem .9rem; background:#141823; border:1px solid rgba(255,255,255,.06); border-radius:12px; }
+    .item::before { content:""; position:absolute; left:-.2rem; top:1rem; width:10px; height:10px; background: var(--brand-2); border-radius:50%; box-shadow: 0 0 0 3px rgba(0,212,255,.22); }
+
+    form { display:grid; gap:.9rem; }
+    .field { display:grid; gap:.35rem; }
+    input, textarea { width:100%; padding:.9rem 1rem; border-radius:12px; background:#121722; border:1px solid #262c3a; color:var(--text); font:inherit; }
+    input:focus, textarea:focus { outline:2px solid rgba(124,92,255,.35); border-color: rgba(124,92,255,.45); }
+    .socials { display:flex; gap:.7rem; flex-wrap:wrap; }
+    .socials a { padding:.5rem .8rem; border:1px solid #2c3240; border-radius:10px; text-decoration:none; color:#cdd3e4; }
+
+    footer { padding: 40px 0; text-align:center; color: var(--muted); border-top:1px solid rgba(255,255,255,.06); background: #0d0f13; }
+
+    .reveal { opacity:0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.on { opacity:1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      #home { grid-template-columns: 1fr; padding-top: 20px; }
+      #about .wrap { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { display:none; }
+      .menu-toggle { display:block; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    .drawer { position: fixed; inset: 0 0 0 auto; width: 78%; max-width: 320px; background: #0f1218; border-left:1px solid rgba(255,255,255,.06); transform: translateX(100%); transition: transform .25s ease; z-index:40; padding: 16px; }
+    .drawer.open { transform: translateX(0); }
+    .drawer a { display:block; padding:.9rem 1rem; margin:.15rem 0; border-radius:10px; color:#d7d9e5; text-decoration:none; }
+    .drawer a:hover { background:#161b25; }
+    .scrim { position:fixed; inset:0; background:rgba(0,0,0,.35); backdrop-filter: blur(2px); opacity:0; pointer-events:none; transition: opacity .2s ease; z-index:39; }
+    .scrim.show { opacity:1; pointer-events:auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div style="font-weight:800;">Shaik Mabusubhani</div>
+          <div class="muted" style="font-size:.86rem; margin-top:-2px;">Your Profession</div>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Open menu" aria-controls="drawer" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="container">
+    <section id="home" class="section">
+      <div>
+        <span class="badge">👋 Hello, I'm</span>
+        <h1 class="hero-title title">Subhani</h1>
+        <p class="hero-sub muted">I build clean, fast, and delightful web experiences. Specialized in frontend engineering, UI architecture, and performance optimization.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#projects">View Projects</a>
+          <a class="btn secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img class="hero-photo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop" alt="Portrait of Shaik Mabusubhani">
+        <div class="hero-orb" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="about" class="section reveal">
+      <h2 class="title" style="font-size:2rem; margin:0 0 .5rem;">About Me</h2>
+      <p class="muted" style="margin:0 0 1.2rem;">Short bio goes here. Mention your years of experience, focus areas, and what you’re passionate about. Keep it human, concise, and specific.</p>
+      <div class="wrap">
+        <div class="card" style="padding:1rem;">
+          <h3 style="margin:.2rem 0 1rem;">Skills</h3>
+          <div class="skills">
+            <div class="skill">
+              <h4>HTML/CSS</h4>
+              <div class="bar" aria-label="HTML/CSS proficiency 90%"><span data-width="90"></span></div>
+            </div>
+            <div class="skill">
+              <h4>JavaScript</h4>
+              <div class="bar" aria-label="JavaScript proficiency 85%"><span data-width="85"></span></div>
+            </div>
+            <div class="skill">
+              <h4>React</h4>
+              <div class="bar" aria-label="React proficiency 80%"><span data-width="80"></span></div>
+            </div>
+            <div class="skill">
+              <h4>Testing/Automation</h4>
+              <div class="bar" aria-label="Testing/Automation proficiency 75%"><span data-width="75"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:1rem;">
+          <h3 style="margin:.2rem 0 1rem;">What I Do</h3>
+          <ul class="muted" style="margin:0; padding-left:1rem;">
+            <li>Responsive UI development & component systems</li>
+            <li>Performance tuning & accessibility best practices</li>
+            <li>End-to-end testing (Playwright / Selenium)</li>
+            <li>CI/CD pipelines and DevOps collaboration</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section reveal">
+      <div style="display:flex; align-items:end; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <div>
+          <h2 class="title" style="font-size:2rem; margin:0 0 .5rem;">Projects</h2>
+          <p class="muted" style="margin:0">A selection of recent work. Click a card to learn more.</p>
+        </div>
+        <a class="btn secondary" href="#contact">Need something similar?</a>
+      </div>
+
+      <div class="grid projects-grid" style="margin-top:1rem;">
+        <article class="project card">
+          <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot">
+          <div class="content">
+            <h3>Project One</h3>
+            <p class="muted">A modern dashboard with real-time charts, dark mode, and role-based access.</p>
+            <div class="tags">
+              <span class="tag">React</span><span class="tag">Node</span><span class="tag">Charting</span>
+            </div>
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+          </div>
+        </article>
+        <article class="project card">
+          <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot">
+          <div class="content">
+            <h3>Project Two</h3>
+            <p class="muted">An e‑commerce experience with lightning‑fast search, wishlist, and checkout.</p>
+            <div class="tags">
+              <span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">Stripe</span>
+            </div>
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+          </div>
+        </article>
+        <article class="project card">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot">
+          <div class="content">
+            <h3>Project Three</h3>
+            <p class="muted">A portfolio generator CLI that scaffolds pages and deploys to Netlify.</p>
+            <div class="tags">
+              <span class="tag">CLI</span><span class="tag">Netlify</span><span class="tag">Automation</span>
+            </div>
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="resume" class="section reveal">
+      <h2 class="title" style="font-size:2rem; margin:0 0 .5rem;">Resume</h2>
+      <p class="muted">Grab the PDF or skim the highlights below.</p>
+      <div class="resume-actions">
+        <a class="btn" href="assets/YourName_Resume.pdf" download>Download PDF</a>
+        <a class="btn secondary" href="#contact">Request full CV</a>
+      </div>
+      <div class="timeline">
+        <div class="item">
+          <strong>Senior Frontend Engineer</strong> — Company A
+          <div class="muted">2023 – Present · Built design system, cut bundle size 35%.</div>
+        </div>
+        <div class="item">
+          <strong>Frontend Engineer</strong> — Company B
+          <div class="muted">2021 – 2023 · Led migration to React, boosted Core Web Vitals.</div>
+        </div>
+        <div class="item">
+          <strong>Software Engineer</strong> — Company C
+          <div class="muted">2019 – 2021 · Delivered e‑commerce features used by 1M+ users.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section reveal">
+      <h2 class="title" style="font-size:2rem; margin:0 0 .5rem;">Contact</h2>
+      <p class="muted">Have a question or a project in mind? Let’s talk.</p>
+      <div class="grid" style="grid-template-columns: 1.1fr .9fr;">
+        <div class="card" style="padding:1rem;">
+          <form id="contactForm" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me a bit about your project…" required></textarea>
+            </div>
+            <button class="btn" type="submit">Send Message</button>
+            <p id="formMsg" class="muted" role="status" style="margin:.5rem 0 0;"></p>
+          </form>
+        </div>
+        <div class="card" style="padding:1rem;">
+          <h3 style="margin:.2rem 0 1rem;">Find me online</h3>
+          <div class="socials">
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer">Twitter/X</a>
+            <a href="mailto:you@example.com">Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Shaik Mabusubhani — All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const drawer = document.getElementById('drawer');
+    const scrim = document.getElementById('scrim');
+    const toggle = document.querySelector('.menu-toggle');
+    const links = [...drawer.querySelectorAll('a')];
+    const closeDrawer = () => { drawer.classList.remove('open'); scrim.classList.remove('show'); drawer.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); };
+    toggle.addEventListener('click', ()=>{ drawer.classList.add('open'); scrim.classList.add('show'); drawer.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); });
+    scrim.addEventListener('click', closeDrawer);
+    links.forEach(a=>a.addEventListener('click', closeDrawer));
+
+    const sections = ['home','about','projects','resume','contact'].map(id=>document.getElementById(id));
+    const navLinks = [...document.querySelectorAll('header nav a')];
+    const setActive = () => {
+      let idx = 0, fromTop = window.scrollY + 100;
+      for (let i = 0; i < sections.length; i++) {
+        const s = sections[i];
+        if (s && s.offsetTop <= fromTop) idx = i;
+      }
+      navLinks.forEach(l => l.classList.remove('active'));
+      const current = navLinks[idx]; if (current) current.classList.add('active');
+    };
+    window.addEventListener('scroll', setActive);
+    setActive();
+
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('on');
+          e.target.querySelectorAll('.bar span').forEach(span=>{
+            const target = span.dataset.width;
+            if (target) span.style.width = target + '%';
+          });
+        }
+      })
+    }, { threshold:.12 });
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = data.get('name')?.toString().trim();
+      const email = data.get('email')?.toString().trim();
+      const message = data.get('message')?.toString().trim();
+
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if(!name || !emailOk || !message){
+        msg.textContent = 'Please fill out all fields with a valid email address.';
+        msg.style.color = getComputedStyle(document.documentElement).getPropertyValue('--danger');
+        return;
+      }
+
+      msg.textContent = 'Validation passed ✔ (connect to your backend/Formspree to actually send).';
+      msg.style.color = '#a7f3d0';
+    });
+  </script>
+</body>
+</html>
